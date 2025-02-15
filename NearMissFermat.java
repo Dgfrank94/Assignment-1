@@ -15,6 +15,7 @@
  * 
  */
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class NearMissFermat {
@@ -25,6 +26,14 @@ public class NearMissFermat {
         int n = getExponent(scanner);
         int k = getUpperBound(scanner);
         algorithm(n, k);
+
+        // Pauses before exiting program
+        System.out.println("Press any key to exit...");
+        try {
+            System.in.read(); // Wait for any key press, including Enter
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -90,15 +99,15 @@ public class NearMissFermat {
         for (int x = 10; x <= k; x++) {
             // For loop that sets y = 10 and cycles until y > k
             for (int y = 10; y <= k; y++) {
-                int sum = (int) Math.pow(x, n) + (int) Math.pow(y, n); // Adds x^n and y^n into the variable sum
+                long sum = (long) Math.pow(x, n) + (long) Math.pow(y, n); // Adds x^n and y^n into the variable sum
                 z = (int) Math.pow(sum, 1.0 / n); // Finds the nth square root of the sum and sets it to z as a whole number
                 
-                int z1 = (int) Math.pow(z, n); // Finds the sum of z to the nth power and sets it to z1
-                int z2 = (int) Math.pow(z + 1, n); // Finds the sum of z+1 to the nth power and sets it to z2              
+                long z1 = (long) Math.pow(z, n); // Finds the sum of z to the nth power and sets it to z1
+                long z2 = (long) Math.pow(z + 1, n); // Finds the sum of z+1 to the nth power and sets it to z2              
                 
-                int miss1 = sum - z1; // Subtracts z1 from the sum
-                int miss2 = z2 - sum; // Subtracts the sum from z2                
-                int miss = Math.min(miss1, miss2); // miss = the smaller variable
+                long miss1 = sum - z1; // Subtracts z1 from the sum
+                long miss2 = z2 - sum; // Subtracts the sum from z2                
+                long miss = Math.min(miss1, miss2); // miss = the smaller variable
 
                 // Checks if miss is equal to miss2
                 if(miss == miss2)
