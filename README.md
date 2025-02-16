@@ -6,11 +6,11 @@
 
 **To compile:**
 
-- Open a terminal and navigate to the directory containing NearMissFermat and run `javac NearMissFermat.java`
+- Open a terminal and navigate to the directory containing NearMissFermat and run `javac NearMissFermat.java` (jar included)
 
 **Execution:**
 
-- After the program compiles, run it with `java NearMissFermat`
+- After the program compiles, run it with `java NearMissFermat.jar`
 
 **Directions:**
 
