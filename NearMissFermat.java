@@ -1,29 +1,41 @@
-/* Title
+/* Title: Near Miss Finder for Fermat's Equation
  * NearMissFermat.java
+ *
+ * External Files needed to run: N/A
+ * External Files created: N/A
  * 
- * 
- * Daniel Hernandez
- * danielhernandez1@lewisu.edu
+ * Programmers: Daniel Hernandez, Dalayno Franklin
+ * Email: danielhernandez1@lewisu.edu, dalaynofranklin@lewisu.edu
  * SP25-CPSC-44000-LT1
- * (Date finshed)
- * (Explaantion of program)
- * etc
- * 
- * 
- * 
+ *
+ * Date finished: 2/16/2025
+ *
+ * Explanation:
+ * This program searches for "near misses" in Fermat's equation: x^n + y^n ≠ z^n
+ * It calculated x^n + y^n for x and y in the range [10, k] and finds the integer z
+ * such that z^n or (z+1)^n is closest to the sum. When a new smallest relative miss is found
+ * it prints the current best values.
+ *
+ * Resources
  * 
  * 
  */
 
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.IOException; // For handling exceptions
+import java.util.Scanner; // For reading user input
 
 public class NearMissFermat {
+    /**
+     *
+     * Allows the program to run by calling helper methods
+     */
     public static void main(String[] args) {
+        // Create a scanner object
         Scanner scanner = new Scanner(System.in);
 
         // Get n exponent
         int n = getExponent(scanner);
+        // Get upper bound k
         int k = getUpperBound(scanner);
         algorithm(n, k);
 
@@ -32,52 +44,59 @@ public class NearMissFermat {
         try {
             System.in.read(); // Wait for any key press, including Enter
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Print stack trace if exception occurs
         }
 
     }
 
     /**
-     * Prompts user to enter an exponent
+     * Prompts user to enter an exponent where 2 < n < 12
      * @param scanner to read user input
-     * @return valid exponent
+     * @return valid exponent (n)
      */
     public static int getExponent(Scanner scanner) {
         int n;
+        // Loop until a valid integer in the range is entered
         while (true) {
             System.out.print("Enter the exponent n (must be an integer with 2 < n < 12): ");
-            if (scanner.hasNextInt()) {
+            if (scanner.hasNextInt()) { // check if input is integer
                 n = scanner.nextInt();
-                if (n > 2 && n < 12) {
-                    break;
+                if (n > 2 && n < 12) { // check if integer is between 2 and 12
+                    break; // stop loop if valid input is received
                 } else {
-                    System.out.println("Error: n must be greater than 2 and less than 12");
+                    System.out.println("Error: n must be greater than 2 and less than 12"); // error our if integer not in range
                 }
             } else {
-                System.out.println("Error: Please enter a valid integer for n");
-                scanner.next();
+                System.out.println("Error: Please enter a valid integer for n"); // error if input is not an integer
+                scanner.next(); // clear invalid input
             }
         }
-        return n;
+        return n; // return integer if valid
     }
 
+    /**
+     * This gets the upper bound where k >= 10
+     * @param scanner to read user input
+     * @return a valid upper bound (k)
+     */
     public static int getUpperBound(Scanner scanner) {
-        int k;
+        int k; // Declaration for k
+        // loop until valid integer for k is entered
         while (true) {
             System.out.print("Enter the upper bound k (must be an integer >= 10): ");
-            if (scanner.hasNextInt()) {
+            if (scanner.hasNextInt()) { // check if input is an integer
                 k = scanner.nextInt();
-                if (k >= 10) {
-                    break;
+                if (k >= 10) { // check if k is greater than or equal to 10
+                    break; // stop loop if valid input is received
                 } else {
-                    System.out.println("Error: k must be at least 10");
+                    System.out.println("Error: k must be at least 10"); // error if k is less than 10
                 }
             } else {
-                System.out.println("Error: Please enter a valid integer for k.");
-                scanner.next();
+                System.out.println("Error: Please enter a valid integer for k."); // error is k is not an integer
+                scanner.next(); // clear invalid input
             }
         }
-        return k;
+        return k; // return k if it is valid
     }
 
     /* Runs the algorithm to find near misses on x^n+y^n=z^n.
